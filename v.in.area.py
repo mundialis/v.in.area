@@ -108,8 +108,10 @@ def main():
             type = "line"
         else:
             grass.fatal(
-                _("The geometry type of <%s> is not clear (%d areas, %d points, %d lines)"
-                % (map, topo["centroids"], topo["lines"], topo["points"]))
+                _(
+                    "The geometry type of <%s> is not clear (%d areas, %d points, %d lines)"
+                    % (map, topo["centroids"], topo["lines"], topo["points"])
+                )
             )
 
     # test overlap
