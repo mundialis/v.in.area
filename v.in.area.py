@@ -69,7 +69,12 @@ def cleanup():
     nuldev = open(os.devnull, "w")
     for rm_v in rm_vectors:
         grass.run_command(
-            "g.remove", flags="f", type="vector", name=rm_v, quiet=True, stderr=nuldev
+            "g.remove",
+            flags="f",
+            type="vector",
+            name=rm_v,
+            quiet=True,
+            stderr=nuldev,
         )
 
 
@@ -97,13 +102,25 @@ def main():
     if type == "auto":
         topo = grass.vector_info_topo(map)
         # areas
-        if topo["centroids"] > 0 and topo["lines"] == 0 and topo["points"] == 0:
+        if (
+            topo["centroids"] > 0
+            and topo["lines"] == 0
+            and topo["points"] == 0
+        ):
             type = "area"
         # points
-        elif topo["centroids"] == 0 and topo["lines"] == 0 and topo["points"] > 0:
+        elif (
+            topo["centroids"] == 0
+            and topo["lines"] == 0
+            and topo["points"] > 0
+        ):
             type = "point"
         # lines
-        elif topo["centroids"] == 0 and topo["lines"] > 0 and topo["points"] == 0:
+        elif (
+            topo["centroids"] == 0
+            and topo["lines"] > 0
+            and topo["points"] == 0
+        ):
             type = "line"
         else:
             grass.fatal(
@@ -127,7 +144,10 @@ def main():
             new_table = True
             grass.run_command("v.db.addtable", map=area, quiet=True)
         grass.run_command(
-            "v.db.addcolumn", map=map, columns="%s integer" % tmpname, quiet=True
+            "v.db.addcolumn",
+            map=map,
+            columns="%s integer" % tmpname,
+            quiet=True,
         )
         grass.run_command(
             "v.what.vect",
@@ -137,12 +157,16 @@ def main():
             query_column="cat",
             quiet=True,
         )
-        test = grass.parse_command("v.db.select", map=map, columns=tmpname, flags="c")
+        test = grass.parse_command(
+            "v.db.select", map=map, columns=tmpname, flags="c"
+        )
         grass.run_command(
             "v.db.dropcolumn", map=map, columns="%s" % tmpname, quiet=True
         )
         if new_table:
-            grass.run_command("v.db.droptable", map=area, flags="f", quiet=True)
+            grass.run_command(
+                "v.db.droptable", map=area, flags="f", quiet=True
+            )
         mind_one_point_inside = False
         for key in test:
             if not key == "":
@@ -151,7 +175,9 @@ def main():
             if flags["e"]:
                 grass.fatal(_("<%s> does not overlap with <%s>" % (map, area)))
             else:
-                sys.stdout.write("<%s> does not overlap with <%s>\n" % (map, area))
+                sys.stdout.write(
+                    "<%s> does not overlap with <%s>\n" % (map, area)
+                )
         else:
             sys.stdout.write("<%s> overlaps with <%s>\n" % (map, area))
     # test for type =  area
@@ -170,7 +196,9 @@ def main():
             if flags["e"]:
                 grass.fatal(_("<%s> does not overlap with <%s>" % (map, area)))
             else:
-                sys.stdout.write("<%s> does not overlap with <%s>\n" % (map, area))
+                sys.stdout.write(
+                    "<%s> does not overlap with <%s>\n" % (map, area)
+                )
         else:
             sys.stdout.write("<%s> overlaps with <%s>\n" % (map, area))
     else:

@@ -62,13 +62,19 @@ class TestVInArea(TestCase):
         """Remove the outputs created
         This is executed after each test run.
         """
-        self.runModule("g.remove", type="vector", name=self.vectormap, flags="f")
+        self.runModule(
+            "g.remove", type="vector", name=self.vectormap, flags="f"
+        )
 
     def test_polygon_is_in_area(self):
         """Test if polygon is in area"""
-        self.runModule("v.import", input=self.polygon_in, output=self.vectormap)
+        self.runModule(
+            "v.import", input=self.polygon_in, output=self.vectormap
+        )
 
-        v_in_area_out = SimpleModule("v.in.area", area=self.area, map=self.vectormap)
+        v_in_area_out = SimpleModule(
+            "v.in.area", area=self.area, map=self.vectormap
+        )
         self.assertModule(v_in_area_out)
         # test that error output is not empty
         stdout = v_in_area_out.outputs.stdout
@@ -80,7 +86,9 @@ class TestVInArea(TestCase):
 
     def test_polygon_is_in_area_type(self):
         """Test if polygon is in area"""
-        self.runModule("v.import", input=self.polygon_in, output=self.vectormap)
+        self.runModule(
+            "v.import", input=self.polygon_in, output=self.vectormap
+        )
 
         v_in_area_out = SimpleModule(
             "v.in.area", area=self.area, map=self.vectormap, type="area"
@@ -96,7 +104,9 @@ class TestVInArea(TestCase):
 
     def test_polygon_is_not_in_area_error(self):
         """Test if polygon is not in area with thrown error"""
-        self.runModule("v.import", input=self.polygon_out, output=self.vectormap)
+        self.runModule(
+            "v.import", input=self.polygon_out, output=self.vectormap
+        )
 
         v_in_area_error = SimpleModule(
             "v.in.area", area=self.area, map=self.vectormap, flags="e"
@@ -111,29 +121,38 @@ class TestVInArea(TestCase):
 
     def test_polygon_is_not_in_area(self):
         """Test if polygon is not in area"""
-        self.runModule("v.import", input=self.polygon_out, output=self.vectormap)
+        self.runModule(
+            "v.import", input=self.polygon_out, output=self.vectormap
+        )
 
-        v_in_area_out = SimpleModule("v.in.area", area=self.area, map=self.vectormap)
+        v_in_area_out = SimpleModule(
+            "v.in.area", area=self.area, map=self.vectormap
+        )
         self.assertModule(v_in_area_out)
         # test that error output is not empty
         stdout = v_in_area_out.outputs.stdout
         self.assertTrue(stdout)
         # test that the right map is mentioned in the error message
         self.assertEquals(
-            "<%s> does not overlap with <%s>\n" % (self.vectormap, self.area), stdout
+            "<%s> does not overlap with <%s>\n" % (self.vectormap, self.area),
+            stdout,
         )
 
     def test_points_are_in_area(self):
         """Test if points are in area"""
         self.runModule("v.import", input=self.points_in, output=self.vectormap)
 
-        v_in_area_out = SimpleModule("v.in.area", area=self.area, map=self.vectormap)
+        v_in_area_out = SimpleModule(
+            "v.in.area", area=self.area, map=self.vectormap
+        )
         self.assertModule(v_in_area_out)
         # test that error output is not empty
         stdout = v_in_area_out.outputs.stdout
         self.assertTrue(stdout)
         # test that the right map is mentioned in the error message
-        self.assertIn("<%s> overlaps with <%s>\n" % (self.vectormap, self.area), stdout)
+        self.assertIn(
+            "<%s> overlaps with <%s>\n" % (self.vectormap, self.area), stdout
+        )
 
     def test_points_are_in_area_type(self):
         """Test if points are in area"""
@@ -147,11 +166,15 @@ class TestVInArea(TestCase):
         stdout = v_in_area_out.outputs.stdout
         self.assertTrue(stdout)
         # test that the right map is mentioned in the error message
-        self.assertIn("<%s> overlaps with <%s>\n" % (self.vectormap, self.area), stdout)
+        self.assertIn(
+            "<%s> overlaps with <%s>\n" % (self.vectormap, self.area), stdout
+        )
 
     def test_points_are_not_in_area_error(self):
         """Test if points are not in area with thrown error"""
-        self.runModule("v.import", input=self.points_out, output=self.vectormap)
+        self.runModule(
+            "v.import", input=self.points_out, output=self.vectormap
+        )
 
         v_in_area_error = SimpleModule(
             "v.in.area", area=self.area, map=self.vectormap, flags="e"
@@ -166,16 +189,21 @@ class TestVInArea(TestCase):
 
     def test_points_are_not_in_area(self):
         """Test if points are not in area"""
-        self.runModule("v.import", input=self.points_out, output=self.vectormap)
+        self.runModule(
+            "v.import", input=self.points_out, output=self.vectormap
+        )
 
-        v_in_area_out = SimpleModule("v.in.area", area=self.area, map=self.vectormap)
+        v_in_area_out = SimpleModule(
+            "v.in.area", area=self.area, map=self.vectormap
+        )
         self.assertModule(v_in_area_out)
         # test that error output is not empty
         stdout = v_in_area_out.outputs.stdout
         self.assertTrue(stdout)
         # test that the right map is mentioned in the error message
         self.assertIn(
-            "<%s> does not overlap with <%s>\n" % (self.vectormap, self.area), stdout
+            "<%s> does not overlap with <%s>\n" % (self.vectormap, self.area),
+            stdout,
         )
 
     def test_line_error(self):
