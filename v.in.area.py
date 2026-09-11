@@ -95,6 +95,9 @@ def main():
     area = options["area"]
     type = options["type"]
 
+    # for flake8
+    rm_vectors = []
+
     # Test if all required data are there
     test_requiered_data([], [map, area])
 
